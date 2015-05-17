@@ -2,10 +2,10 @@
 #First 1k rows
 #Training set
 bikes <- read.table("/Users/scdavis6/Documents/Work/Kaggle/Bikes/train.csv", sep = ",",
-                    header = TRUE)
+                    header = TRUE, na.strings = "NA")
 #Test set
 bikes2 <- read.table("/Users/scdavis6/Documents/Work/Kaggle/Bikes/test.csv", sep = ",",
-                     header = TRUE)
+                     header = TRUE, na.strings = "NA")
 #Descriptive statistics
 #Get data type
 class(bikes)
@@ -39,8 +39,8 @@ bikes$hour <- as.integer(substr(bikes$datetime,	12,13))
 bikes$hour <- as.factor(bikes$hour)
 #Get weekday for each date from datetime - REPORT ERROR
 bikes$weekday <- as.factor(weekdays(bikes$datetime))
-bikes$weekday <- factor(bikes$weekday,	levels	=	c("Montag",	"Dienstag",	"Mittwoch",	
-                                            "Donnerstag",	"Freitag",	"Samstag",	"Sonntag"))
+bikes$weekday <- factor(bikes$weekday,	levels	=	c("Monday",	"Tuesday",	"Wednesday",	
+                                            "Thursday",	"Friday",	"Saturday",	"Sunday"))
 #Get year from data
 bikes$year <- as.integer(substr(bikes$datetime,	1,4))
 bikes$year <- as.factor(bikes$year)
