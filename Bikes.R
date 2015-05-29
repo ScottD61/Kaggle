@@ -81,39 +81,5 @@ varImpPlot(ranbikes, main = "Fit of Casual")
 #Randomforest for registered user predictions
 
              
-#use predict function
 
-#I'm confused on pg 8
 
-library(dummies)
-#Convert variables with factors to binary in test set
-Bin <- dummy.data.frame(train) 
-#Convert variables with factors to binary in test set
-Bint <- dummy.data.frame(test) 
-#Drop timestamp variable from test set
-Bin1 <- subset(Bin, select = c(2:53))
-#Drop timestamp variable from test set
-Bin1A <- subset(Bint, select = c(2:50))
-
-#Linear regression of casual 
-model1 <- lm(casual ~ ., data = Bin1)
-#Get summary of model1
-summary(model1)
-#Get confidence intervals for model 1
-confint(model1, conf.level = 0.95)
-#Plot regression
-plot(model1)
-#Linear regression of registered
-model2 <- lm(registered ~ ., data = Bin1)
-#Get summary of model1
-summary(model2)
-#Get confidence intervals for model 1
-confint(model2, conf.level = 0.95)
-#Plot regression
-plot(model2)
-
-#Create casual column in test set
-
-#Predict value of count
-#Create count column in test set - predict not working
-Bint$casual <- predict(model1, Bint)
