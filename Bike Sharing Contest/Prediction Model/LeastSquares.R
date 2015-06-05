@@ -95,8 +95,6 @@ test$registered <- c(0)
 #Create count column in test set 
 test$casual <- predict(model1.5, test)
 
-#Bonded dust's method - bad 
-model1.5 <- lm(casual ~ season+ holiday + workingday + weather +
-                   temp + atemp + humidity + windspeed +
-                   registered + hour + weekday + year-1 , data = train1)
-summary(model1.5)
+#Create .csv of predictions
+write.csv(test, file = "/Users/scdavis6/Documents/Work/Kaggle/Bikes/results.csv")
+
