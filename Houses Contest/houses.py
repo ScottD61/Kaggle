@@ -25,5 +25,9 @@ house_train.describe()
 categorical = house_train.dtypes[house_train.dtypes == "object"].index
 house_train[categorical].describe()
 
+#Data cleaning
+#Drop ID column
+
 #Model building
 
+house_train[GarageYrBlt].describe()
