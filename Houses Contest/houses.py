@@ -10,7 +10,6 @@ import pandas as pd
 import numpy as np
 import sklearn.linear_model as ln
 from sklearn.model_selection import cross_val_score
-from pandas.tools.plotting import scatter_matrix
 
 
 #Import train and test datasets
@@ -52,21 +51,16 @@ house_new = house_train.drop('Id', 1)
 #Histogram of dependent variable
 house_new['SalePrice'].hist(bins = 50)
 
-#Scatterplot matrix of numeric variables
-scatter_matrix(house_new, alpha=0.2, figsize=(6, 6))
 
+#SKIP univariate for categorical
 #Barcharts of all categorical variables
 #Types of dwellings
-a = house_new['MSSubClass'].value_counts()
-a.plot(kind = 'bar')
+#a = house_new['MSSubClass'].value_counts()
+#a.plot(kind = 'bar')
 
 #Zoning classification
-b = house_new['MSZoning'].value_counts()
-b.plot(kind = 'bar')
-
-
-
-
+#b = house_new['MSZoning'].value_counts()
+#b.plot(kind = 'bar')
 
 
 
@@ -78,12 +72,14 @@ seaborn.corrplot(house_new, annot = False, diag_names = False)
 
 #Get top 10 correlations with the price variable
 
+
 #Get top correlations with variables to each other 
 
+#Regression lines on sales prices and several others
 #Do saleprice with OverallQual
 #Saleprice with YearBuilt
 #Saleprprice with GrLivArea
-#
+
 
 #Step 4
 #Data imputation
