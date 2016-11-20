@@ -9,6 +9,8 @@ import seaborn
 import pandas as pd
 import numpy as np
 import sklearn.linear_model as ln
+from sklearn.decomposition import PCA
+from sklearn.model_selection import GridSearchCV
 from sklearn.model_selection import cross_val_score
 
 
@@ -131,3 +133,23 @@ np.mean(R2_Scores)
 
 #Model scores low - requires feature engineering
 
+#Model 2 - OLS with decreased features
+
+#Model 3 - OLS after PCA
+#list of principal components
+n_components = np.array([5, 10, 15, 20, 25, 30, 35, 50, 75, 100])
+
+#Search for number of principal components using gridsearch
+#PCA object
+pca = PCA()
+#Gridsearch
+clf = GridSearchCV(estimator = pca, param_grid = dict(n_components = n_components)) 
+#Fit linear model 
+res = clf.fit(X_train)  #problem, there is an inf value, DELETE IT 
+#Get number of principal components
+get_params(res)
+
+
+
+#Model 4 - Lasso w/ all features
+#Model 5 - Ridge w/ all features
