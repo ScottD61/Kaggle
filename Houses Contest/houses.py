@@ -137,7 +137,7 @@ np.mean(R2_Scores)
 
 #Model 3 - OLS after PCA
 #list of principal components
-n_components = np.array([5, 10, 15, 20, 25, 30, 35, 50, 75, 100])
+n_components = np.array([3, 5, 10])
 
 #Search for number of principal components using gridsearch
 #PCA object
@@ -149,6 +149,9 @@ res = clf.fit(X_train)  #problem, there is an inf value, DELETE IT
 #Get number of principal components
 get_params(res)
 
+
+#Check for nas
+X_train.isnull().sum()
 
 
 #Model 4 - Lasso w/ all features
