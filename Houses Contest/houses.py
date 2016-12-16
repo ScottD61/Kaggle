@@ -142,10 +142,12 @@ n_components = np.array([3, 5, 10])
 #Search for number of principal components using gridsearch
 #PCA object
 pca = PCA()
+#Convert dataframe to matrix 
+X_mat = X_train.as_matrix()
 #Gridsearch
 clf = GridSearchCV(estimator = pca, param_grid = dict(n_components = n_components)) 
 #Fit linear model 
-res = clf.fit(X_train)  #problem, there is an inf value, DELETE IT 
+res = clf.fit(X_mat)  #problem, there is an inf value, DELETE IT 
 #Get number of principal components
 get_params(res)
 
