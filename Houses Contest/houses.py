@@ -18,6 +18,37 @@ from sklearn.model_selection import cross_val_score
 house_train = pd.read_csv('train.csv')
 house_test = pd.read_csv('test.csv')
 
+#Data cleaning
+#Replace NA factor name in categorical variables with another name
+house_train['Alley'].replace('NA', 'NoAlley', inplace = True)
+house_test['Alley'].replace('NA', 'NoAlley', inplace = True)
+house_train['BsmtQual'].replace('NA', 'NB', inplace = True)
+house_test['BsmtQual'].replace('NA', 'NB', inplace = True)
+house_train['BsmtCond'].replace('NA', 'NB', inplace = True)
+house_test['BsmtCond'].replace('NA', 'NB', inplace = True)
+house_train['BsmtExposure'].replace('NA', 'NB', inplace = True)
+house_test['BsmtExposure'].replace('NA', 'NB', inplace = True)
+house_train['BsmtFinType1'].replace('NA', 'NB', inplace = True)
+house_test['BsmtFinType1'].replace('NA', 'NB', inplace = True)
+house_train['BsmtFinType2'].replace('NA', 'NB', inplace = True)
+house_test['BsmtFinType2'].replace('NA', 'NB', inplace = True)
+house_train['FireplaceQu'].replace('NA', 'NF', inplace = True)
+house_test['FireplaceQu'].replace('NA', 'NF', inplace = True)
+house_train['GarageType'].replace('NA', 'NG', inplace = True)
+house_test['GarageType'].replace('NA', 'NG', inplace = True)
+house_train['GarageFinish'].replace('NA', 'NG', inplace = True)
+house_test['GarageFinish'].replace('NA', 'NG', inplace = True)
+house_train['GarageQual'].replace('NA', 'NG', inplace = True)
+house_test['GarageQual'].replace('NA', 'NG', inplace = True)
+house_train['GarageCond'].replace('NA', 'NG', inplace = True)
+house_test['GarageCond'].replace('NA', 'NG', inplace = True)
+house_train['PoolQC'].replace('NA', 'NP', inplace = True)
+house_test['PoolQC'].replace('NA', 'NP', inplace = True)
+house_train['Fence'].replace('NA', 'NF', inplace = True)
+house_test['Fence'].replace('NA', 'NF', inplace = True)
+house_train['MiscFeature'].replace('NA', 'NoF', inplace = True)
+house_test['MiscFeature'].replace('NA', 'NoF', inplace = True)
+
 
 #Data exploration
 #Name of variables
@@ -97,6 +128,9 @@ house = house_na.apply(lambda x:x.fillna(x.value_counts().index[0]))
 #Convert categorical datatype to dummy variables in dataframe
 house_final = pd.get_dummies(house)
 
+#export to .csv to check for nan
+house_final.to_csv('house_final.csv')
+
 
 #Model building
 #Separate and x and y variables
@@ -141,7 +175,7 @@ n_components = np.array([3, 5, 10])
 
 #Search for number of principal components using gridsearch
 #PCA object
-pca = PCA()
+pca = PCA(whiten = True)
 #Convert dataframe to matrix 
 X_mat = X_train.as_matrix()
 #Gridsearch
@@ -150,6 +184,17 @@ clf = GridSearchCV(estimator = pca, param_grid = dict(n_components = n_component
 res = clf.fit(X_mat)  #problem, there is an inf value, DELETE IT 
 #Get number of principal components
 get_params(res)
+
+#Other way - fixed the problem, it was gridsearch
+
+pca = PCA(n_components = 10, whiten = True)
+#Fit model
+pca.fit(X_mat)
+#Transform data
+x = pca.transform(X_mat)
+
+#Fit model with PCA
+
 
 
 #Check for nas
