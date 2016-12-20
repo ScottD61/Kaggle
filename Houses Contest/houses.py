@@ -171,17 +171,20 @@ np.mean(R2_Scores)
 
 #Model 3 - OLS after PCA
 #list of principal components
-n_components = np.array([3, 5, 10])
+n_components = np.array([3, 5, 10, 15, 20, 25, 30, 35, 40, 45])
 
 #Search for number of principal components using gridsearch
 #PCA object
 pca = PCA(whiten = True)
-#Convert dataframe to matrix 
+#Convert dataframes to matrix 
+#Independent variables
 X_mat = X_train.as_matrix()
+#Dependent variable
+Y_mat = Y_train.as_matrix()
 #Gridsearch
 clf = GridSearchCV(estimator = pca, param_grid = dict(n_components = n_components)) 
 #Fit linear model 
-res = clf.fit(X_mat)  #problem, there is an inf value, DELETE IT 
+res = clf.fit(X_mat, Y_mat)  #problem, there is an inf value, DELETE IT 
 #Get number of principal components
 get_params(res)
 
