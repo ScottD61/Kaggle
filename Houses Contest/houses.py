@@ -186,22 +186,36 @@ clf = GridSearchCV(estimator = pca, param_grid = dict(n_components = n_component
 #Fit linear model 
 res = clf.fit(X_mat, Y_mat)  #problem, there is an inf value, DELETE IT 
 #Get number of principal components
-get_params(res)
+pca.get_params(res)
 
 #Other way - fixed the problem, it was gridsearch
+#To do - get gridsearch to work
 
 pca = PCA(n_components = 10, whiten = True)
 #Fit model
-pca.fit(X_mat)
+results = pca.fit(X_mat)
+#Get number of principal components
+pca.get_params(results)
 #Transform data
-x = pca.transform(X_mat)
+x_pca = pca.transform(X_mat)
 
 #Fit model with PCA
+#Train model with training sets
+regr.fit(x_pca, Y_train)
 
-
-
-#Check for nas
-X_train.isnull().sum()
+#Evaluation
+#Cross validation score for MSE 10 folds
+MSE_Scores_pca = cross_val_score(regr, x_pca, Y_train, scoring = 'neg_mean_squared_error', cv = 10)
+#Take average of all cross validation folds
+np.mean(MSE_Scores_pca)
+#Cross validation score for MAE 10 fold
+MAE_Scores_pca = cross_val_score(regr, x_pca, Y_train, scoring = 'mean_absolute_error', cv = 10)
+#Take average of all cross validation folds
+np.mean(MAE_Scores_pca)
+#Cross validation score for R2 10 folds
+R2_Scores_pca = cross_val_score(regr, x_pca, Y_train, scoring = 'r2', cv = 10)
+#Take average of all cross validation folds
+np.mean(R2_Scores_pca)
 
 
 #Model 4 - Lasso w/ all features
