@@ -220,3 +220,7 @@ np.mean(R2_Scores_pca)
 
 #Model 4 - Lasso w/ all features
 #Model 5 - Ridge w/ all features
+
+#Submit results in test set
+#Create join of the id in test set and answers in test set
+#solution = pd.DataFrame({"id":test.Id, "SalePrice":preds})
